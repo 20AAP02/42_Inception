@@ -2,3 +2,5 @@ To setup VM:
 - https://codebots.com/docs/ubuntu-18-04-virtual-machine-setup
 To install Docker in VM:
 - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
+Learn About Docker
+- https://docs.docker.com/get-started/

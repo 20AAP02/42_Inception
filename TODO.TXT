@@ -1,0 +1,7 @@
+Recommended To Read:
+- documentation related to Docker usage
+- how daemons work and whether it’s a good idea to use them or not
+- PID 1 and the best practices for writing Dockerfiles
+
+Important Info:
+- VM ip adress (192.168.56.101) - ssh amaria-m@192.168.56.101

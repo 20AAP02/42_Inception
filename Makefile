@@ -1,2 +1,2 @@
 all:
-	docker-compose -f srcs/docker-compose.yml up
+	docker-compose up -d

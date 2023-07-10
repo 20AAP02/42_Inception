@@ -4,6 +4,6 @@ To install Docker in VM:
 - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
 Learn About Docker
 - https://docs.docker.com/get-started/
-
 Docker Compose
 - https://www.baeldung.com/ops/docker-compose
+- https://blog.kubesimplify.com/everything-you-need-to-know-about-docker-compose

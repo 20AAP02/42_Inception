@@ -1,24 +1,17 @@
-version: '3.7'
+version: '3'
 services:
   nginx:
     build: requirements/nginx/
     container_name: nginx
-    ports:
-    volumes:
-    depends_on: wordpress
-    restart: always
+    depends_on:
+      - wordpress
 
   wordpress:
     build: requirements/wordpress/
     container_name: wordpress
-    ports:
-    volumes:
-    depends_on: mariadb
-    restart: always
+    depends_on:
+      - mariadb
 
   mariadb:
     build: requirements/mariadb/
     container_name: mariadb
-    ports:
-    volumes:
-    restart: always

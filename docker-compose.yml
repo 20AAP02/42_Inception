@@ -1,9 +1,10 @@
-version: '3'
+version: '2.3'
 services:
   
   # Nginx Service
   nginx:
     image: nginx:1.21
+    container_name: nginx
     ports:
       - '80:80'
     volumes:
@@ -15,6 +16,7 @@ services:
   # PHP Service
   php:
     build: ./.docker/php
+    container_name: php
     working_dir: /var/www/php
     volumes:
       - ./srcs:/var/www/php
@@ -25,6 +27,7 @@ services:
   #MySQL Service
   mysql:
     image: mysql/mysql-server:8.0
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: "%"
@@ -40,6 +43,7 @@ services:
   # PhpMyAdmin Service
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5
+    container_name: phpmyadmin
     ports:
       - 8080:80
     environment:

@@ -1,4 +1,3 @@
-
 all: run
 
 # Start and run the containers in the background
@@ -13,14 +12,14 @@ re:
 lst:
 	@docker compose ps
 
+# List the containers
+lstImgs:
+	@docker image ls
+
 # Stop the containers
 stop:
 	@docker compose stop
 
-# Stop and/or destroy the containers
-stopDestroy:
-	@docker compose down -v
-
 # Delete everything, including images
-destroy:
-	@docker compose down -v --rmi all --remove-orphans
+destroy: stop
+	@docker system prune -a

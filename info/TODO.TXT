@@ -10,4 +10,4 @@ Steps to make inside VM
 - trie this command: docker version (if docker is not installed search for the command to install it; link: https://docs.docker.com/engine/install/ubuntu/)
 - When you're done with the docker image, you can post it to dockerHub, so that it is accessable from any pc
 - command to see present images localy: sudo docker image ls
-- command to run ubuntu terminal: sudo docker run -it ubuntu 
+- command to run ubuntu terminal: sudo docker run -it ubuntu

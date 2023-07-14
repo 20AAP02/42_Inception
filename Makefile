@@ -2,15 +2,15 @@ all: run
 
 # Start and run the containers in the background
 run:
-	@docker-compose up -d
+	@docker compose -f ./srcs/docker-compose.yml up -d
 
 # Restart the containers
 re:
-	@docker compose restart
+	@docker compose -f ./srcs/docker-compose.yml restart
 
 # List the containers
 lst:
-	@docker compose ps
+	@docker compose -f ./srcs/docker-compose.yml ps
 
 # List the containers
 lstImgs:
@@ -18,7 +18,7 @@ lstImgs:
 
 # Stop the containers
 stop:
-	@docker compose stop
+	@docker compose -f ./srcs/docker-compose.yml stop
 
 # Delete everything, including images
 destroy: stop

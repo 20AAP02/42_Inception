@@ -8,18 +8,18 @@ services:
     ports:
       - '80:80'
     volumes:
-        - ./srcs:/var/www/php
-        - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+        - ./src:/var/www/php
+        - ./requirements/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - php
   
   # PHP Service
   php:
-    build: ./.docker/php
+    build: ./requirements/php
     container_name: php
     working_dir: /var/www/php
     volumes:
-      - ./srcs:/var/www/php
+      - ./src:/var/www/php
     depends_on:
       mysql:
         condition: service_healthy
@@ -33,7 +33,7 @@ services:
       MYSQL_ROOT_HOST: "%"
       MYSQL_DATABASE: demo
     volumes:
-      - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./requirements/mysql/my.cnf:/etc/mysql/my.cnf
       - mysqldata:/var/lib/mysql
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD

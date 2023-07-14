@@ -14,4 +14,7 @@ Guides
 
 Links for the webpages of the project:
 - localhost:8080 -> phpMyAdmin
-- php.test / localhost:80 -> website page
+- php.test / localhost:443 -> website page
+
+Commands:
+- sudo nano /etc/hosts (to change hosts file)

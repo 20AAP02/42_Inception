@@ -6,10 +6,11 @@ services:
     image: nginx:1.21
     container_name: nginx
     ports:
-      - '80:80'
+      - '443:443'
     volumes:
         - ./src:/var/www/php
         - ./requirements/nginx/conf.d:/etc/nginx/conf.d
+        - ./requirements/nginx/certs:/etc/nginx/certs
     depends_on:
       - php
   

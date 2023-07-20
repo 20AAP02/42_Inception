@@ -1,60 +1,122 @@
-version: '2.3'
-services:
-  
-  # Nginx Service
-  nginx:
-    image: nginx:1.21
-    container_name: nginx
-    ports:
-      - '443:443'
-    volumes:
-        - ./src:/var/www/php
-        - ./requirements/nginx/conf.d:/etc/nginx/conf.d
-        - ./requirements/nginx/certs:/etc/nginx/certs
-    depends_on:
-      - php
-  
-  # PHP Service
-  php:
-    build: ./requirements/php
-    container_name: php
-    working_dir: /var/www/php
-    volumes:
-      - ./src:/var/www/php
-    depends_on:
-      mysql:
-        condition: service_healthy
-  
-  #MySQL Service
-  mysql:
-    image: mysql/mysql-server:8.0
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: demo
-    volumes:
-      - ./requirements/mysql/my.cnf:/etc/mysql/my.cnf
-      - mysqldata:/var/lib/mysql
-    healthcheck:
-      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
-      interval: 5s
-      retries: 10
-  
-  # PhpMyAdmin Service
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5
-    container_name: phpmyadmin
-    ports:
-      - 8080:80
-    environment:
-      PMA_HOST: mysql
-    depends_on:
-      mysql:
-        condition: service_healthy
+version: "3.5"
 
-
-# Volumes
 volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      device: /home/amaria-m/data/wordpress
+      o: bind
+      type: none
 
-  mysqldata:
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      device: /home/amaria-m/data/mariadb
+      o: bind
+      type: none
+
+networks:
+  inception:
+    name: inception
+
+services:
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/.
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception
+    restart: always
+  
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/.
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: always
+  
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/.
+    volumes:
+      - mariadb:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: always
+  
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp/.
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/home/amaria-m/ftp/files
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+      - "20:20"
+      - "40000-40005:40000-40005"
+    networks:
+      - inception
+    restart: always
+  
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer/.
+    depends_on:
+      - mariadb
+    ports:
+      - "600:80"
+    networks:
+      - inception
+    restart: always
+  
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis/.
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    restart: always
+  
+  website:
+    container_name: website
+    build: ./requirements/bonus/website/.
+    ports:
+      - "3000:80"
+    networks:
+      - inception
+  
+  cadvisor:
+    container_name: cadvisor
+    build: ./requirements/bonus/cadvisor/.
+    ports:
+      - "8080:8080"
+    networks:
+      - inception
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    restart: always

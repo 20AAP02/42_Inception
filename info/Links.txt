@@ -11,8 +11,8 @@ Guides
 - https://github.com/vbachele/Inception
 - https://github.com/llescure/42_Inception
 - (tutorial completed) https://tech.osteel.me/posts/docker-for-local-web-development-part-1-a-basic-lemp-stack
-- (current tutorial that im following) https://github.com/Forstman1/inception-42
-
+- https://github.com/Forstman1/inception-42
+- (current tutorial that im following) https://github.com/alexnik42/inception
 Links for the webpages of the project:
 - localhost:8080 -> phpMyAdmin
 - php.test / localhost:443 -> website page

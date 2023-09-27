@@ -1,0 +1,19 @@
+
+# List All Images
+docker image ls
+
+# List All Containers
+docker container ls
+
+# Stop All Containers
+docker stop $(docker ps -a -q)
+
+# Remove All Stoped Containers
+docker container prune
+
+# Remove All Dangling Images
+docker image prune
+
+# Remove All Images
+docker rmi $(docker images -a -q)
+

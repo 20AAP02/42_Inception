@@ -1,50 +1,39 @@
-version: '3.7'
+version: '3.9'
 
 services:
-
-  mariadb:
-    container_name: mariadb
-    build:
-      context: ./requirements/mariadb
-    image: mariadb
-    env_file:
-      - .env
-    volumes:
-      - /home/amaria-m/data/mysql:/var/lib/mysql
-    networks:
-      - inception_network
-    restart: on-failure
-
-  wordpress:
-    container_name: wordpress
-    build:
-      context: ./requirements/wordpress
-    image: wordpress
-    depends_on:
-      - mariadb
-    env_file:
-      - .env
-    volumes:
-      - /home/amaria-m/data/wordpress:/var/www/html/wordpress
-    networks:
-      - inception_network
-    restart: on-failure
-
   nginx:
-    container_name: nginx
-    build:
-      context: ./requirements/nginx
-    image: nginx
-    volumes:
-      - /home/amaria-m/data/wordpress:/var/www/html/wordpress
+    image: nginx:1.19.10-alpine
     ports:
-      - "443:443"
+      - 80:80
+      - 443:443
+    volumes:
+      - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./requirements/nginx/certs:/etc/nginx/certs
     depends_on:
       - wordpress
-    networks:
-      - inception_network
-    restart: on-failure
+  wordpress:
+    image: wordpress:5.7.1-php7.3-apache
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html
+  db:
+    image: mysql:5.7.34
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
 
-networks:
-  inception_network:
-    name: inception
+volumes:
+  wordpress:
+  db:

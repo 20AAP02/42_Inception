@@ -17,3 +17,4 @@ docker image prune
 # Remove All Images
 docker rmi $(docker images -a -q)
 
+github that im following: https://github.com/mfunyu/Inception/blob/main/srcs/docker-compose.yml

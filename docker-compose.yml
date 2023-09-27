@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   nginx:
+    container_name: nginx
     image: nginx:1.19.10-alpine
     ports:
       - 80:80
@@ -12,18 +13,20 @@ services:
     depends_on:
       - wordpress
   wordpress:
+    container_name: wordpress
     image: wordpress:5.7.1-php7.3-apache
     restart: always
     ports:
       - 8080:80
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
     volumes:
       - wordpress:/var/www/html
-  db:
+  mariadb:
+    container_name: mariadb
     image: mysql:5.7.34
     restart: always
     environment:
@@ -32,8 +35,8 @@ services:
       MYSQL_PASSWORD: examplepass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - db:/var/lib/mysql
+      - mariadb:/var/lib/mysql
 
 volumes:
   wordpress:
-  db:
+  mariadb:

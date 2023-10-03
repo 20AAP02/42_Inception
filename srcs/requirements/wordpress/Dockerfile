@@ -1,18 +1,19 @@
-FROM alpine:3.17
+FROM alpine:3.14
 
 RUN apk update \
 	&& apk add wget
 
+# ------------------------------------ php ----------------------------------- #
 RUN apk add php7 \
-	php7-fpm \
-	php7-json \
-	php7-mbstring \
-	php7-mysqli \
-	php7-phar \
-	php7-tokenizer \
-	php7-openssl \
-	php-curl \
-	mariadb-client
+		php7-fpm \
+		php7-json \
+		php7-mbstring \
+		php7-mysqli \
+		php7-phar \
+		php7-tokenizer \
+		php7-openssl \
+		php-curl \
+		mariadb-client
 
 # php-fpm configuration
 COPY www.conf /etc/php7/php-fpm.d/www.conf

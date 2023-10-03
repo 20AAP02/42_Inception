@@ -12,7 +12,7 @@ if [ $? -ne 0 ] ; then
 				   --dbuser=${MYSQL_USER} \
 				   --dbpass=${MYSQL_PASSWORD} \
 				   --dbhost=${WORDPRESS_DB_HOST}
-	wp core install --url=${DOMAIN_NAME} \
+	wp core install --url=${DOMAIN} \
 					--title=${TITLE} \
 					--admin_user=${WORDPRESS_ADMIN} \
 					--admin_email=${WORDPRESS_ADMIN_EMAIL} \

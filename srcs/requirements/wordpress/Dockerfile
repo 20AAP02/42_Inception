@@ -3,16 +3,20 @@ FROM alpine:3.17
 RUN apk update \
 	&& apk add wget
 
+# Install packages not yet updated for the current alpine version TODO remove when no longer needed
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories
+RUN apk add --no-cache wkhtmltopdf
+
 # ------------------------------------ php ----------------------------------- #
-RUN apk add --no-cache \
-	php8 \
-	php8-fpm \
-	php8-json \
-	php8-mbstring \
-	php8-mysqli \
-	php8-phar \
-	php8-tokenizer \
-	php8-openssl \
+RUN apk add --no-cache php7 \
+	php7-fpm \
+	php7-json \
+	php7-mbstring \
+	php7-mysqli \
+	php7-phar \
+	php7-tokenizer \
+	php7-openssl \
 	php-curl \
 	mariadb-client
 

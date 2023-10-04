@@ -5,10 +5,10 @@ COMPOSE	:= $(SRCDIR)/docker-compose.yml
 
 all:
 	@- $(DIR)/tools/setup.sh
-	cd $(SRCDIR) && docker-compose up --build
+	cd $(SRCDIR) && docker compose up --build
 
 clean:
-	cd $(SRCDIR) && docker-compose down
+	cd $(SRCDIR) && docker compose down
 	$(DIR)/tools/clean.sh
 
 fclean: clean
@@ -20,15 +20,15 @@ fclean: clean
 
 re: fclean
 	@- $(DIR)/tools/setup.sh
-	cd $(SRCDIR) && docker-compose build --no-cache && docker-compose up
+	cd $(SRCDIR) && docker compose build --no-cache && docker compose up
 
 
 # -------------------------------- docker exec ------------------------------- #
 nginx:
-	cd $(SRCDIR) && docker-compose exec nginx /bin/sh
+	cd $(SRCDIR) && docker compose exec nginx /bin/sh
 
 wp:
-	cd $(SRCDIR) && docker-compose exec wordpress /bin/sh
+	cd $(SRCDIR) && docker compose exec wordpress /bin/sh
 
 db:
-	cd $(SRCDIR) && docker-compose exec mariadb /bin/sh
+	cd $(SRCDIR) && docker compose exec mariadb /bin/sh

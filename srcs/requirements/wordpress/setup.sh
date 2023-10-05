@@ -5,6 +5,7 @@ while ! mysql -h mariadb -P 3306 -u ${MYSQL_USER} -p${MYSQL_PASSWORD} 2> /dev/nu
 sleep 1
 done
 
+# WordPress Core Installation Check and Setup
 wp core is-installed 2> /dev/null
 if [ $? -ne 0 ] ; then
 	wp core download --allow-root
@@ -22,4 +23,5 @@ if [ $? -ne 0 ] ; then
 					--user_pass=${WORDPRESS_USER_PASSWD}
 fi
 
+# Start the PHP-FPM (FastCGI Process Manager) to handle PHP requests
 /usr/sbin/php-fpm7

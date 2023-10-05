@@ -26,3 +26,4 @@ make db
 mysql -uwordpress -ppassword
 USE wordpress
 SHOW TABLES;
+SELECT * FROM wp_users;

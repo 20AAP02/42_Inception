@@ -19,7 +19,10 @@ docker rmi $(docker images -a -q)
 
 github that im following: https://github.com/mfunyu/Inception/blob/main/srcs/docker compose.yml
 
-DOUGHTS
-- Examine the Dockerfiles. If you see 'tail -f' or any command run in
-background in any of them in the ENTRYPOINT section, the evaluation
-ends now.
+Evaluation Commands
+
+MariaDB:
+make db
+mysql -uwordpress -ppassword
+USE wordpress
+SHOW TABLES;

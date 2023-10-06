@@ -11,14 +11,12 @@ RUN apk update \
 
 # ---------------------------------- mariadb --------------------------------- #
 
-# Replaces a commented-out line in the MariaDB configuration file 
+# Replace a commented-out line in the MariaDB configuration file 
 # to allow binding to the address 0.0.0.0, which means it will 
-# listen on all available network interfaces.
-RUN sed -ie "s/#bind-address=0.0.0.0/bind-address=0.0.0.0/g" /etc/my.cnf.d/mariadb-server.cnf \
-
-# Comments out a line that would otherwise disable networking 
-# in MariaDB by prefixing it with #.
-RUN sed -ie "s/skip-networking/# skip-networking/g" /etc/my.cnf.d/mariadb-server.cnf
+# listen on all available network interfaces. Comments out a line that would 
+# otherwise disable networking in MariaDB by prefixing it with #.
+RUN sed -ie "s/#bind-address=0.0.0.0/bind-address=0.0.0.0/g" /etc/my.cnf.d/mariadb-server.cnf && \
+	sed -ie "s/skip-networking/# skip-networking/g" /etc/my.cnf.d/mariadb-server.cnf
 
 COPY setup.sh .
 
